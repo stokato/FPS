@@ -67,8 +67,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\FPSInput.cs" />
+    <Compile Include="Assets\Scripts\Fireball.cs" />
     <Compile Include="Assets\Scripts\MouseLook.cs" />
+    <Compile Include="Assets\Scripts\PlayerCharacter.cs" />
     <Compile Include="Assets\Scripts\RayShooter.cs" />
+    <Compile Include="Assets\Scripts\ReactiveTarget.cs" />
+    <Compile Include="Assets\Scripts\ScneController.cs" />
+    <Compile Include="Assets\Scripts\WanderingAI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
