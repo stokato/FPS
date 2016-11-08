@@ -3,6 +3,8 @@ using System.Collections;
 
 public class WanderingAI : MonoBehaviour {
 
+    public const float baseSpeed = 3.0f;
+
     [SerializeField]
     private GameObject fireballPrefab;
     private GameObject _fireball;
@@ -12,6 +14,16 @@ public class WanderingAI : MonoBehaviour {
     public float speed = 3.0f;
     public float obstackeRange = 5.0f;
 	
+    void Awake()
+    {
+        Messenger<float>.AddListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+    }
+
+    void OnDestroy()
+    {
+        Messenger<float>.RemoveListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+    }
+
     void Start()
     {
         _alive = true; 
@@ -54,6 +66,11 @@ public class WanderingAI : MonoBehaviour {
     public void SetAlive(bool alive)
     {
         _alive = alive;
+    }
+
+    private void OnSpeedChanged(float value)
+    {
+        speed = baseSpeed * value;
     }
 }
 

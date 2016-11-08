@@ -3,6 +3,12 @@ using System.Collections;
 using UnityEngine.EventSystems;
 
 public class RayShooter : MonoBehaviour {
+    [SerializeField]
+    private AudioSource soundSource;
+    [SerializeField]
+    private AudioClip hitWallSound;
+    [SerializeField]
+    private AudioClip hitEnemySound;
 
     private Camera _camera;
 
@@ -26,7 +32,7 @@ public class RayShooter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if(Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject()) // Проверка - GUI не используется
+	    if(Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false) // Проверка - GUI не используется
         {
             Vector3 point = new Vector3(_camera.pixelWidth * 0.5f, _camera.pixelHeight * 0.5f, 0);
 
@@ -41,9 +47,13 @@ public class RayShooter : MonoBehaviour {
                 if(target != null)
                 {
                     target.ReactToHit();
+                    Messenger.Broadcast(GameEvent.ENEMY_HIT);
+
+                    soundSource.PlayOneShot(hitEnemySound); // Вызываем метод PlayOneShot() для воспроизведения звука 
                 } else
                 {
-                    StartCoroutine(SphereIndicator(hit.point));  
+                    StartCoroutine(SphereIndicator(hit.point));
+                    soundSource.PlayOneShot(hitWallSound);
                 }
             }
         }
